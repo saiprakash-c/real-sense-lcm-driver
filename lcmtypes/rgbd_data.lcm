@@ -1,0 +1,9 @@
+struct rgbd_data
+{
+    int64_t utime;
+    int32_t width;
+    int32_t height;
+    int32_t num_pixels;
+    int8_t rgb[num_pixels][3];
+    int16_t depth[num_pixels];
+}
