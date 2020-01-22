@@ -31,6 +31,7 @@ void PublishBGRDToLCM(const cv::Mat& bgr_image, const cv::Mat& depth_image, cons
         }
     }
     lcm_object.publish( "RGBD_DATA_CHANNEL",&rgb_lcm);
+
 }
 
 int main()
