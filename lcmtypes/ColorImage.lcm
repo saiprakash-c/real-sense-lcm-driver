@@ -1,0 +1,9 @@
+struct ColorImage
+{
+    int64_t utime;
+    int32_t width;
+    int32_t height;
+    int8_t bytes_per_pixel;
+    int32_t num_bytes;
+    byte pixel_data[num_bytes];
+}
