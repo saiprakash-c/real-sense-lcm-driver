@@ -3,3 +3,5 @@ bin/
 lib/
 .vscode/
 my_types.jar
+images/
+*.log
