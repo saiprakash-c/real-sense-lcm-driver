@@ -1,11 +1,10 @@
-struct DepthImage
+struct Image
 {
     int64_t utime;
     int32_t width;
     int32_t height;
-    int32_t line_stride;
+    int32_t line_stride; 
     int32_t bytes_per_pixel;
     int32_t num_bytes;
     byte pixel_data[num_bytes];
-    float meters_per_unit;
 }

@@ -6,13 +6,13 @@
 
 #include <lcm/lcm_coretypes.h>
 
-#ifndef __DepthImage_hpp__
-#define __DepthImage_hpp__
+#ifndef __Image_hpp__
+#define __Image_hpp__
 
 #include <vector>
 
 
-class DepthImage
+class Image
 {
     public:
         int64_t    utime;
@@ -28,8 +28,6 @@ class DepthImage
         int32_t    num_bytes;
 
         std::vector< uint8_t > pixel_data;
-
-        float      meters_per_unit;
 
     public:
         /**
@@ -67,7 +65,7 @@ class DepthImage
         inline static int64_t getHash();
 
         /**
-         * Returns "DepthImage"
+         * Returns "Image"
          */
         inline static const char* getTypeName();
 
@@ -78,7 +76,7 @@ class DepthImage
         inline static uint64_t _computeHash(const __lcm_hash_ptr *p);
 };
 
-int DepthImage::encode(void *buf, int offset, int maxlen) const
+int Image::encode(void *buf, int offset, int maxlen) const
 {
     int pos = 0, tlen;
     int64_t hash = (int64_t)getHash();
@@ -92,7 +90,7 @@ int DepthImage::encode(void *buf, int offset, int maxlen) const
     return pos;
 }
 
-int DepthImage::decode(const void *buf, int offset, int maxlen)
+int Image::decode(const void *buf, int offset, int maxlen)
 {
     int pos = 0, thislen;
 
@@ -107,23 +105,23 @@ int DepthImage::decode(const void *buf, int offset, int maxlen)
     return pos;
 }
 
-int DepthImage::getEncodedSize() const
+int Image::getEncodedSize() const
 {
     return 8 + _getEncodedSizeNoHash();
 }
 
-int64_t DepthImage::getHash()
+int64_t Image::getHash()
 {
     static int64_t hash = _computeHash(NULL);
     return hash;
 }
 
-const char* DepthImage::getTypeName()
+const char* Image::getTypeName()
 {
-    return "DepthImage";
+    return "Image";
 }
 
-int DepthImage::_encodeNoHash(void *buf, int offset, int maxlen) const
+int Image::_encodeNoHash(void *buf, int offset, int maxlen) const
 {
     int pos = 0, tlen;
 
@@ -150,13 +148,10 @@ int DepthImage::_encodeNoHash(void *buf, int offset, int maxlen) const
         if(tlen < 0) return tlen; else pos += tlen;
     }
 
-    tlen = __float_encode_array(buf, offset + pos, maxlen - pos, &this->meters_per_unit, 1);
-    if(tlen < 0) return tlen; else pos += tlen;
-
     return pos;
 }
 
-int DepthImage::_decodeNoHash(const void *buf, int offset, int maxlen)
+int Image::_decodeNoHash(const void *buf, int offset, int maxlen)
 {
     int pos = 0, tlen;
 
@@ -184,13 +179,10 @@ int DepthImage::_decodeNoHash(const void *buf, int offset, int maxlen)
         if(tlen < 0) return tlen; else pos += tlen;
     }
 
-    tlen = __float_decode_array(buf, offset + pos, maxlen - pos, &this->meters_per_unit, 1);
-    if(tlen < 0) return tlen; else pos += tlen;
-
     return pos;
 }
 
-int DepthImage::_getEncodedSizeNoHash() const
+int Image::_getEncodedSizeNoHash() const
 {
     int enc_size = 0;
     enc_size += __int64_t_encoded_array_size(NULL, 1);
@@ -200,13 +192,12 @@ int DepthImage::_getEncodedSizeNoHash() const
     enc_size += __int32_t_encoded_array_size(NULL, 1);
     enc_size += __int32_t_encoded_array_size(NULL, 1);
     enc_size += __byte_encoded_array_size(NULL, this->num_bytes);
-    enc_size += __float_encoded_array_size(NULL, 1);
     return enc_size;
 }
 
-uint64_t DepthImage::_computeHash(const __lcm_hash_ptr *)
+uint64_t Image::_computeHash(const __lcm_hash_ptr *)
 {
-    uint64_t hash = 0xa726ea2957bb9d25LL;
+    uint64_t hash = 0x009902750cbd4f57LL;
     return (hash<<1) + ((hash>>63)&1);
 }
 

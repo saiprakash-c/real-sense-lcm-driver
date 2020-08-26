@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.*;
 import lcm.lcm.*;
  
-public final class DepthImage implements lcm.lcm.LCMEncodable
+public final class Image implements lcm.lcm.LCMEncodable
 {
     public long utime;
     public int width;
@@ -18,14 +18,13 @@ public final class DepthImage implements lcm.lcm.LCMEncodable
     public int bytes_per_pixel;
     public int num_bytes;
     public byte pixel_data[];
-    public float meters_per_unit;
  
-    public DepthImage()
+    public Image()
     {
     }
  
     public static final long LCM_FINGERPRINT;
-    public static final long LCM_FINGERPRINT_BASE = 0xa726ea2957bb9d25L;
+    public static final long LCM_FINGERPRINT_BASE = 0x009902750cbd4f57L;
  
     static {
         LCM_FINGERPRINT = _hashRecursive(new ArrayList<Class<?>>());
@@ -33,10 +32,10 @@ public final class DepthImage implements lcm.lcm.LCMEncodable
  
     public static long _hashRecursive(ArrayList<Class<?>> classes)
     {
-        if (classes.contains(lcmtypes.DepthImage.class))
+        if (classes.contains(lcmtypes.Image.class))
             return 0L;
  
-        classes.add(lcmtypes.DepthImage.class);
+        classes.add(lcmtypes.Image.class);
         long hash = LCM_FINGERPRINT_BASE
             ;
         classes.remove(classes.size() - 1);
@@ -66,16 +65,14 @@ public final class DepthImage implements lcm.lcm.LCMEncodable
         if (this.num_bytes > 0)
             outs.write(this.pixel_data, 0, num_bytes);
  
-        outs.writeFloat(this.meters_per_unit); 
- 
     }
  
-    public DepthImage(byte[] data) throws IOException
+    public Image(byte[] data) throws IOException
     {
         this(new LCMDataInputStream(data));
     }
  
-    public DepthImage(DataInput ins) throws IOException
+    public Image(DataInput ins) throws IOException
     {
         if (ins.readLong() != LCM_FINGERPRINT)
             throw new IOException("LCM Decode error: bad fingerprint");
@@ -83,9 +80,9 @@ public final class DepthImage implements lcm.lcm.LCMEncodable
         _decodeRecursive(ins);
     }
  
-    public static lcmtypes.DepthImage _decodeRecursiveFactory(DataInput ins) throws IOException
+    public static lcmtypes.Image _decodeRecursiveFactory(DataInput ins) throws IOException
     {
-        lcmtypes.DepthImage o = new lcmtypes.DepthImage();
+        lcmtypes.Image o = new lcmtypes.Image();
         o._decodeRecursive(ins);
         return o;
     }
@@ -106,13 +103,11 @@ public final class DepthImage implements lcm.lcm.LCMEncodable
  
         this.pixel_data = new byte[(int) num_bytes];
         ins.readFully(this.pixel_data, 0, num_bytes); 
-        this.meters_per_unit = ins.readFloat();
- 
     }
  
-    public lcmtypes.DepthImage copy()
+    public lcmtypes.Image copy()
     {
-        lcmtypes.DepthImage outobj = new lcmtypes.DepthImage();
+        lcmtypes.Image outobj = new lcmtypes.Image();
         outobj.utime = this.utime;
  
         outobj.width = this.width;
@@ -128,8 +123,6 @@ public final class DepthImage implements lcm.lcm.LCMEncodable
         outobj.pixel_data = new byte[(int) num_bytes];
         if (this.num_bytes > 0)
             System.arraycopy(this.pixel_data, 0, outobj.pixel_data, 0, this.num_bytes); 
-        outobj.meters_per_unit = this.meters_per_unit;
- 
         return outobj;
     }
  
