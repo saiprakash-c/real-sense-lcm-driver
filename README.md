@@ -2,7 +2,7 @@
 
 Inteal Realsense LCM driver connects to a Realsense device and publishes RGB and depth images as LCM messages.  
 
-The driver is tested only with Realsense D435 in Ubuntu 18.04. But it should work for any D400 series device. The lcmtypes of RGB and depth images are in `lcmtypes` folder. The channels for RGB and depth images are **RGB_DATA_CHANNEL** and **DEPTH_DATA_CHANNEL** repsectively.
+The driver is tested only with Realsense D435 in Ubuntu 18.04. But it should work for any D400 series device. The lcmtypes of RGB and depth images are in `lcmtypes` folder. The channels for RGB and depth images are **SENSOR_RGB_IMAGE** and **SENSOR_DEPTH_IMAGE** repsectively.
 
 ## Prerequisites
 
