@@ -25,14 +25,17 @@ int main(int argc, char** argv)
     }
     Image color_img;
     DepthImage depth_img;
-
+    rs2::align align_to_color(RS2_STREAM_COLOR);
     while (true)
     {
-        rs2::frameset frames = p.wait_for_frames();
-        //get a frame of depth image
-        rs2::video_frame color_frame = frames.get_color_frame();
-        rs2::depth_frame depth_frame = frames.get_depth_frame();
+        rs2::frameset frameset = p.wait_for_frames();
+        //align to color frame- refer to https://github.com/IntelRealSense/librealsense/blob/master/examples/align/rs-align.cpp
+        frameset=align_to_color.process(frameset);
 
+        //get a frame of depth image
+        rs2::video_frame color_frame = frameset.get_color_frame();
+        rs2::depth_frame depth_frame = frameset.get_depth_frame();
+        
         // get color image info
         const int w_color = color_frame.get_width();
         const int h_color = color_frame.get_height();
