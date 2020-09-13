@@ -4,14 +4,14 @@ void ImageDisplay::handleColor(const lcm::ReceiveBuffer* buf, const std::string&
 {
     cv::Mat newImg(img->height,img->width, CV_8UC3, (void*)&(img->pixel_data[0]), img->line_stride);
     colorImg_ = newImg;
-    std::string timestamp = std::to_string(img->utime);
-    std::string fName = "../images/" + timestamp + ".png";
-    cv::imwrite(fName, colorImg_ );
-    std::ofstream file;
-    file.open("../images/rgb.txt",std::ios::app);
-    if(!file.is_open()){std::cout << "rgb.txt could not be opened" << std::endl;}
-    file << time << "\n";
-    file.close();
+    // std::string timestamp = std::to_string(img->utime);
+    // std::string fName = "../images/" + timestamp + ".png";
+    // cv::imwrite(fName, colorImg_ );
+    // std::ofstream file;
+    // file.open("../images/rgb.txt",std::ios::app);
+    // if(!file.is_open()){std::cout << "rgb.txt could not be opened" << std::endl;}
+    // file << timestamp << "\n";
+    // file.close();
     // Display in a GUI
     // cv::namedWindow("RGB Image", cv::WINDOW_AUTOSIZE);
     // cv::imshow("RGB Image", colorImg_);
@@ -20,15 +20,17 @@ void ImageDisplay::handleColor(const lcm::ReceiveBuffer* buf, const std::string&
 
 void ImageDisplay::handleDepth(const lcm::ReceiveBuffer* buf, const std::string& channel, const DepthImage* img)
 {
-    cv::Mat newImg(img->height,img->width, CV_16SC1, (void*)&(img->pixel_data[0]));
+    cv::Mat newImg(img->height,img->width, CV_16UC1, (void*)&(img->pixel_data[0]));
     depthImg_ = newImg;
     std::cout<< img->meters_per_unit << "\n";
     std::string timestamp = std::to_string(img->utime);
     std::string fName = "../images/" + timestamp + ".png";
-    cv::imwrite(fName, depthImg_ );
-    //  file.open("../images/depth.txt",std::ios::app);
-    // if(!file.is_open()){std::cout << ".txt could not be opened" << std::endl;}
-    // file << time << " " << fName << "\n";
+    cv::imwrite(fName, depthImg_);
+    std::ofstream file;
+    file.open("../images/depth.txt",std::ios::app);
+    if(!file.is_open()){std::cout << "depth.txt could not be opened" << std::endl;}
+    file << timestamp << "\n";
+    file.close();
     // Display in a GUI
     // cv::imshow("Depth Image", depthImg_);
     // cv::waitKey(1);
