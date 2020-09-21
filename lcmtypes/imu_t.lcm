@@ -1,0 +1,11 @@
+struct imu_t
+{
+    int64_t utime;
+
+    float gyro[3];
+    float gyro_covariance[3][3];
+    float accel[3];
+    float accel_covariance[3][3];
+    float orientation[4]; //quaternion
+    float orientation_covariance[4][4];
+}
