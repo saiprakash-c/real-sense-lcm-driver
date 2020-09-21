@@ -4,14 +4,14 @@ void ImageDisplay::handleColor(const lcm::ReceiveBuffer* buf, const std::string&
 {
     cv::Mat newImg(img->height,img->width, CV_8UC3, (void*)&(img->pixel_data[0]), img->line_stride);
     colorImg_ = newImg;
-    // std::string timestamp = std::to_string(img->utime);
-    // std::string fName = "../images/" + timestamp + ".png";
-    // cv::imwrite(fName, colorImg_ );
-    // std::ofstream file;
-    // file.open("../images/rgb.txt",std::ios::app);
-    // if(!file.is_open()){std::cout << "rgb.txt could not be opened" << std::endl;}
-    // file << timestamp << "\n";
-    // file.close();
+    std::string timestamp = std::to_string(img->utime);
+    std::string fName = "/home/vulcan/03_sai/04_data/image_data/homo_matrix/color/" + timestamp + ".png";
+    cv::imwrite(fName, colorImg_);
+    std::ofstream file;
+    file.open("/home/vulcan/03_sai/04_data/image_data/homo_matrix/color/times.txt",std::ios::app);
+    if(!file.is_open()){std::cout << "times.txt could not be opened for color" << std::endl;}
+    file << timestamp << "\n";
+    file.close();
     // Display in a GUI
     // cv::namedWindow("RGB Image", cv::WINDOW_AUTOSIZE);
     // cv::imshow("RGB Image", colorImg_);
@@ -24,11 +24,11 @@ void ImageDisplay::handleDepth(const lcm::ReceiveBuffer* buf, const std::string&
     depthImg_ = newImg;
     std::cout<< img->meters_per_unit << "\n";
     std::string timestamp = std::to_string(img->utime);
-    std::string fName = "../images/" + timestamp + ".png";
+    std::string fName = "/home/vulcan/03_sai/04_data/image_data/homo_matrix/depth/" + timestamp + ".png";
     cv::imwrite(fName, depthImg_);
     std::ofstream file;
-    file.open("../images/depth.txt",std::ios::app);
-    if(!file.is_open()){std::cout << "depth.txt could not be opened" << std::endl;}
+    file.open("/home/vulcan/03_sai/04_data/image_data/homo_matrix/depth/times.txt",std::ios::app);
+    if(!file.is_open()){std::cout << "times.txt could not be opened for depth" << std::endl;}
     file << timestamp << "\n";
     file.close();
     // Display in a GUI

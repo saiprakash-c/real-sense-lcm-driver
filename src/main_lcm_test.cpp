@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     ImageDisplay displayer(lcmInstance);
     // lcm subscribe
     displayer.subscribe();
-    // handle lcm in a separate thread 
+    // handle lcm in a loop
     while(true)
     {
         lcmInstance.handle();
