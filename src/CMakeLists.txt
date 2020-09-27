@@ -14,9 +14,19 @@ add_library(lcmtypes_lib lcmtypes/Image.c lcmtypes/DepthImage.c lcmtypes/imu_t.c
 # set dependencies for executables
 set(DEPENDENCIES ${realsense2_LIBRARY} ${OpenCV_LIBS} lcm lcmtypes_lib pthread)
 
+## Find catkin macros and libraries
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  sensor_msgs
+)
+
+include_directories(${catkin_INCLUDE_DIRS})
+
 add_executable(realsense_driver_lcm main.cpp)
 add_executable(realsense_driver_ros main_ros.cpp)
 add_executable(realsense_receiver_lcm main_lcm_test.cpp ImageDisplay.cpp)
+add_executable(publish_imu publish_imu.cpp)
 target_link_libraries(realsense_driver_lcm ${DEPENDENCIES})
 target_link_libraries(realsense_driver_ros ${DEPENDENCIES})
 target_link_libraries(realsense_receiver_lcm ${DEPENDENCIES})
+target_link_libraries(publish_imu ${DEPENDENCIES} ${catkin_LIBRARIES})
